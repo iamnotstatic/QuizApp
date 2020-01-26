@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:quizapp/home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -7,13 +10,26 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  void initState() {
+    super.initState();
+    Timer(
+      Duration(seconds: 2),
+      () {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomePage()));
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.indigoAccent,
       body: Center(
         child: Text(
           "QuizApp",
-          style: TextStyle(fontSize: 50.0),
+          style: TextStyle(
+              fontSize: 50.0, color: Colors.white, fontFamily: "Quando"),
         ),
       ),
     );
