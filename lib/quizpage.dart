@@ -39,6 +39,7 @@ class _quizpageState extends State<quizpage> {
           "option 1",
           style: TextStyle(
               color: Colors.white, fontFamily: "Alike", fontSize: 16.0),
+          maxLines: 1,
         ),
         color: Colors.indigo,
         splashColor: Colors.indigo[700],
@@ -73,18 +74,31 @@ class _quizpageState extends State<quizpage> {
               flex: 4,
               child: Container(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    choicebutton(),
+                    choicebutton(),
+                    choicebutton(),
                     choicebutton(),
                   ],
                 ),
               )),
           Expanded(
-              flex: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.teal,
+            flex: 1,
+            child: Container(
+              alignment: Alignment.topCenter,
+              child: Center(
+                child: Text(
+                  "30",
+                  style: TextStyle(
+                    fontSize: 35.0,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Time New Roman',
+                  ),
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
       ),
     );
