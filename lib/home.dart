@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizapp/quizpage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,6 +20,10 @@ class _HomePageState extends State<HomePage> {
         20.0,
       ),
       child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => getJson()));
+        },
         child: Material(
           color: Colors.indigoAccent,
           elevation: 10.0,
@@ -36,6 +41,7 @@ class _HomePageState extends State<HomePage> {
                       height: 200.0,
                       child: ClipOval(
                           child: Image(
+                        fit: BoxFit.contain,
                         image: AssetImage(
                           image,
                         ),
