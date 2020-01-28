@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class getJson extends StatelessWidget {
   @override
@@ -54,52 +55,73 @@ class _quizpageState extends State<quizpage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(
-              flex: 3,
-              child: Container(
-                padding: EdgeInsets.all(15.0),
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  "This is a sample question which will will be displayed ?",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontFamily: "Quando",
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    return WillPopScope(
+      onWillPop: () {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Quiz App"),
+            content: Text("You Can't Go Back At This Stage"),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Ok"),
+              ),
+            ],
+          ),
+        );
+      },
+      child: Scaffold(
+        body: Column(
+          children: <Widget>[
+            Expanded(
+                flex: 3,
+                child: Container(
+                  padding: EdgeInsets.all(15.0),
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    "This is a sample question which will will be displayed ?",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: "Quando",
+                    ),
                   ),
-                ),
-              )),
-          Expanded(
-              flex: 4,
+                )),
+            Expanded(
+                flex: 4,
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      choicebutton(),
+                      choicebutton(),
+                      choicebutton(),
+                      choicebutton(),
+                    ],
+                  ),
+                )),
+            Expanded(
+              flex: 1,
               child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    choicebutton(),
-                    choicebutton(),
-                    choicebutton(),
-                    choicebutton(),
-                  ],
-                ),
-              )),
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.topCenter,
-              child: Center(
-                child: Text(
-                  "30",
-                  style: TextStyle(
-                    fontSize: 35.0,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Time New Roman',
+                alignment: Alignment.topCenter,
+                child: Center(
+                  child: Text(
+                    "30",
+                    style: TextStyle(
+                      fontSize: 35.0,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Time New Roman',
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
