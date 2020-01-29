@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quizapp/resultpage.dart';
 
 class getJson extends StatelessWidget {
   @override
@@ -83,7 +84,11 @@ class _quizpageState extends State<quizpage> {
     setState(() {
       if (i < 5) {
         i++;
-      } else {}
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => resultPage(),
+        ));
+      }
       btncolor["a"] = Colors.indigoAccent;
       btncolor["b"] = Colors.indigoAccent;
       btncolor["c"] = Colors.indigoAccent;
