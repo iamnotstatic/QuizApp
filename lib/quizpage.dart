@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -40,6 +41,9 @@ class _quizpageState extends State<quizpage> {
   Color right = Colors.green;
   Color wrong = Colors.red;
   int marks = 0;
+  int i = 1;
+  int timer = 30;
+  String showtimer = "30";
 
   Map<String, Color> btncolor = {
     "a": Colors.indigoAccent,
@@ -47,6 +51,46 @@ class _quizpageState extends State<quizpage> {
     "c": Colors.indigoAccent,
     "d": Colors.indigoAccent,
   };
+
+  bool canceltimer = false;
+
+  @override
+  void initState() {
+    startimer();
+    super.initState();
+  }
+
+  void startimer() async {
+    const onesec = Duration(seconds: 1);
+    Timer.periodic(onesec, (Timer t) {
+      setState(() {
+        if (timer < 1) {
+          t.cancel();
+          nextquestion();
+        } else if (canceltimer == true) {
+          t.cancel();
+        } else {
+          timer = timer - 1;
+        }
+        showtimer = timer.toString();
+      });
+    });
+  }
+
+  void nextquestion() {
+    canceltimer = false;
+    timer = 30;
+    setState(() {
+      if (i < 5) {
+        i++;
+      } else {}
+      btncolor["a"] = Colors.indigoAccent;
+      btncolor["b"] = Colors.indigoAccent;
+      btncolor["c"] = Colors.indigoAccent;
+      btncolor["d"] = Colors.indigoAccent;
+    });
+    startimer();
+  }
 
   void checkanswer(String key) {
     if (mydata[2]["1"] == mydata[1]["1"][key]) {
@@ -57,7 +101,9 @@ class _quizpageState extends State<quizpage> {
     }
     setState(() {
       btncolor[key] = colortoshow;
+      canceltimer = true;
     });
+    Timer(Duration(seconds: 2), nextquestion);
   }
 
   Widget choicebutton(String key) {
@@ -66,7 +112,7 @@ class _quizpageState extends State<quizpage> {
       child: MaterialButton(
         onPressed: () => checkanswer(key),
         child: Text(
-          mydata[1]["1"][key],
+          mydata[1][i.toString()][key],
           style: TextStyle(
               color: Colors.white, fontFamily: "Alike", fontSize: 16.0),
           maxLines: 1,
@@ -113,7 +159,7 @@ class _quizpageState extends State<quizpage> {
                   padding: EdgeInsets.all(15.0),
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    mydata[0]["1"],
+                    mydata[0][i.toString()],
                     style: TextStyle(
                       fontSize: 18.0,
                       fontFamily: "Quando",
@@ -139,7 +185,7 @@ class _quizpageState extends State<quizpage> {
                 alignment: Alignment.topCenter,
                 child: Center(
                   child: Text(
-                    "30",
+                    showtimer,
                     style: TextStyle(
                       fontSize: 35.0,
                       fontWeight: FontWeight.w700,
