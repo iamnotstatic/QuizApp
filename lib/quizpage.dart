@@ -82,11 +82,11 @@ class _quizpageState extends State<quizpage> {
     canceltimer = false;
     timer = 30;
     setState(() {
-      if (i < 5) {
+      if (i < 10) {
         i++;
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => resultPage(),
+          builder: (context) => resultPage(marks: marks),
         ));
       }
       btncolor["a"] = Colors.indigoAccent;
